@@ -1,9 +1,10 @@
+import 'package:avengers/screens/projectDescription.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'widgets/imageSliders.dart';
-import 'util/data.dart';
+import '../widgets/imageSliders.dart';
+import '../util/data.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -73,15 +74,25 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Center(child: Text('Top Projects')),
           for (int i = 0; i < 3; i++)
-            Container(
-              child: Center(child: Text('Project #$i')),
-              height: 100.0,
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(20),
+            TextButton(
+              child: Container(
+                child: Center(
+                    child: Text('Project #${i + 1}',
+                        style: TextStyle(color: Colors.black))),
+                height: 100.0,
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(20),
+                ),
               ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProjectDescriptionPage()));
+              },
             ),
           Center(child: Text('Top 10 Performers')),
           Container(
