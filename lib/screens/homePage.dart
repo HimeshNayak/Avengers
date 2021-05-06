@@ -1,17 +1,32 @@
-import 'package:avengers/screens/projectDescription.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+
+import 'package:carousel_slider/carousel_slider.dart';
 
 import '../widgets/imageSliders.dart';
+import '../services/authMethods.dart';
 import '../util/data.dart';
+import '../screens/projectDescription.dart';
+import '../screens/login.dart';
 
 class MyHomePage extends StatefulWidget {
+  final AuthMethods auth;
+  MyHomePage({@required this.auth});
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Future<bool> checkLoggedIn() async {
+    bool loggedIn = false;
+    await widget.auth.getCurrentUser().then((value) {
+      if (value != null) {
+        loggedIn = true;
+      }
+    });
+    return loggedIn;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           onPressed: null,
         ),
-        title: Text('MY APP'),
+        title: Text('Avengers'),
       ),
       body: ListView(
         children: <Widget>[
@@ -87,11 +102,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProjectDescriptionPage()));
+              onPressed: () async {
+                await checkLoggedIn().then((value) {
+                  if (value) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProjectDescriptionPage()));
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                LoginPage(auth: widget.auth)));
+                  }
+                });
               },
             ),
           Center(child: Text('Top 10 Performers')),
