@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../services/authMethods.dart';
-import '../screens/login.dart';
 import '../screens/homePage.dart';
 
 class Root extends StatelessWidget {

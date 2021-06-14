@@ -14,9 +14,11 @@ class _LoginPageState extends State<LoginPage> {
   bool isLoading = false;
 
   void toggleIsLoading() {
-    setState(() {
-      isLoading = !isLoading;
-    });
+    setState(
+      () {
+        isLoading = !isLoading;
+      },
+    );
   }
 
   @override
@@ -42,14 +44,17 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   onPressed: () {
                     toggleIsLoading();
-                    widget.auth.signInWithGoogle().whenComplete(() {
-                      toggleIsLoading();
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Root(auth: widget.auth)),
-                          (route) => false);
-                    });
+                    widget.auth.signInWithGoogle().whenComplete(
+                      () {
+                        toggleIsLoading();
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Root(auth: widget.auth),
+                            ),
+                            (route) => false);
+                      },
+                    );
                   },
                 ),
               ],
@@ -57,7 +62,9 @@ class _LoginPageState extends State<LoginPage> {
             Visibility(
               visible: isLoading,
               child: Container(
-                child: Center(child: CircularProgressIndicator()),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(color: Colors.black45),

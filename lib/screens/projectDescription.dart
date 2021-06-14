@@ -9,7 +9,9 @@ class ProjectDescriptionPage extends StatelessWidget {
         title: Text('Project Name'),
       ),
       bottomNavigationBar: Container(
-        child: Center(child: Text('Enroll & Pay')),
+        child: Center(
+          child: Text('Enroll & Pay'),
+        ),
         width: 200.0,
         height: 100.0,
         decoration: BoxDecoration(

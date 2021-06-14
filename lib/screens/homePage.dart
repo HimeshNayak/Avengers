@@ -19,11 +19,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Future<bool> checkLoggedIn() async {
     bool loggedIn = false;
-    await widget.auth.getCurrentUser().then((value) {
-      if (value != null) {
-        loggedIn = true;
-      }
-    });
+    await widget.auth.getCurrentUser().then(
+      (value) {
+        if (value != null) {
+          loggedIn = true;
+        }
+      },
+    );
     return loggedIn;
   }
 
@@ -70,30 +72,37 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: EdgeInsets.symmetric(horizontal: 5),
                   width: 72,
                   child: TextButton(
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.all(0),
-                      ),
-                      onPressed: null,
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.all(0),
+                    ),
+                    onPressed: null,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.black,
+                      radius: 31,
                       child: CircleAvatar(
-                        backgroundColor: Colors.black,
-                        radius: 31,
-                        child: CircleAvatar(
-                            radius: 30,
-                            backgroundImage: NetworkImage(
-                              '${imgList[index]}',
-                            )),
-                      )),
+                        radius: 30,
+                        backgroundImage: NetworkImage(
+                          '${imgList[index]}',
+                        ),
+                      ),
+                    ),
+                  ),
                 );
               },
             ),
           ),
-          Center(child: Text('Top Projects')),
+          Center(
+            child: Text('Top Projects'),
+          ),
           for (int i = 0; i < 3; i++)
             TextButton(
               child: Container(
                 child: Center(
-                    child: Text('Project #${i + 1}',
-                        style: TextStyle(color: Colors.black))),
+                  child: Text(
+                    'Project #${i + 1}',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
                 height: 100.0,
                 width: MediaQuery.of(context).size.width,
                 margin: EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
@@ -103,23 +112,30 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               onPressed: () async {
-                await checkLoggedIn().then((value) {
-                  if (value) {
-                    Navigator.push(
+                await checkLoggedIn().then(
+                  (value) {
+                    if (value) {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProjectDescriptionPage()));
-                  } else {
-                    Navigator.push(
+                          builder: (context) => ProjectDescriptionPage(),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                LoginPage(auth: widget.auth)));
-                  }
-                });
+                          builder: (context) => LoginPage(auth: widget.auth),
+                        ),
+                      );
+                    }
+                  },
+                );
               },
             ),
-          Center(child: Text('Top 10 Performers')),
+          Center(
+            child: Text('Top 10 Performers'),
+          ),
           Container(
             margin: EdgeInsets.symmetric(vertical: 10),
             height: 70,
@@ -130,7 +146,9 @@ class _MyHomePageState extends State<MyHomePage> {
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
-                  child: Center(child: Text('Person #${index + 1}')),
+                  child: Center(
+                    child: Text('Person #${index + 1}'),
+                  ),
                   height: 200.0,
                   width: 100.0,
                   margin: EdgeInsets.all(10.0),
